@@ -1,0 +1,12 @@
+{
+  "name": "resume",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node build.js",
+    "editor": "cd editor && pnpm dev"
+  },
+  "dependencies": {
+    "nunjucks": "^3.2.4"
+  }
+}

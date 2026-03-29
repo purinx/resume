@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ meta.title }} - {{ meta.name }}</title>
+  <style>
+    {% include "variables.css" %}
+    {% include "style.css" %}
+  </style>
+</head>
+<body>
+
+  <div class="page-header">
+    <div class="header-name">{{ meta.name }}</div>
+    <div class="header-role">{{ meta.role }}</div>
+    <div class="header-contact">{{ meta.address }}　|　{{ meta.email }}</div>
+  </div>
+
+  <div class="self-pr">
+    <h2>概要</h2>
+    <p class="summary-text">{{ summary | replace("\n", "<br>") | safe }}</p>
+  </div>
+
+  {% for entry in entries %}
+  <div class="entry">
+    <div class="entry-date">{{ entry.date }}</div>
+    <div class="entry-content">
+
+      {% if entry.company %}
+      <div class="company-row">
+        <span class="company-name">{{ entry.company.name }}</span>
+        <span class="company-role">{{ entry.company.role }}</span>
+      </div>
+      {% if entry.company.info %}
+      <table class="info-table">
+        {% for row in entry.company.info %}
+        <tr>
+          <td>{{ row.label }}</td>
+          <td>{{ row.value | replace("\n", "<br>") | safe }}</td>
+        </tr>
+        {% endfor %}
+      </table>
+      {% endif %}
+      {% endif %}
+
+      {% if entry.teams %}
+      {% for team in entry.teams %}
+      <div class="team-name">{{ team.project }}</div>
+      {% if team.detail %}
+      <table class="detail-table">
+        {% for row in team.detail %}
+        <tr>
+          <td>{{ row.label }}</td>
+          <td>{{ row.value }}</td>
+        </tr>
+        {% endfor %}
+      </table>
+      {% endif %}
+      <p class="description">
+        {{ team.description | join("<br>\n        ") | safe }}
+      </p>
+      {% endfor %}
+      {% endif %}
+
+      {% if entry.description %}
+      <p class="description">
+        {{ entry.description | join("<br>\n        ") | safe }}
+      </p>
+      {% endif %}
+
+    </div>
+  </div>
+  {% endfor %}
+
+</body>
+</html>

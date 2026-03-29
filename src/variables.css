@@ -1,0 +1,22 @@
+:root {
+  /* --- Colors --- */
+  --color-accent:      #4a9e96;
+  --color-text:        #111;
+  --color-text-sub:    #333;
+  --color-text-muted:  #444;
+  --color-text-desc:   #222;
+  --color-border:      #ccc;
+  --color-bg-header:   #eaecec;
+  --color-bg-table:    #f9f9f9;
+
+  /* --- Typography --- */
+  --font-size-xs:   13px;
+  --font-size-base: 14px;
+  --font-size-md:   18px;
+  --font-size-lg:   24px;
+  --font-size-xl:   26px;
+
+  --line-height-base:    1.7;
+  --line-height-text:    1.8;
+  --line-height-heading: 2rem;
+}

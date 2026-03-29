@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>職務経歴書 - 木島 優大朗</title>
+  <style>
+    :root {
+  /* --- Colors --- */
+  --color-accent:      #4a9e96;
+  --color-text:        #111;
+  --color-text-sub:    #333;
+  --color-text-muted:  #444;
+  --color-text-desc:   #222;
+  --color-border:      #ccc;
+  --color-bg-header:   #eaecec;
+  --color-bg-table:    #f9f9f9;
+
+  /* --- Typography --- */
+  --font-size-xs:   13px;
+  --font-size-base: 14px;
+  --font-size-md:   18px;
+  --font-size-lg:   24px;
+  --font-size-xl:   26px;
+
+  --line-height-base:    1.7;
+  --line-height-text:    1.8;
+  --line-height-heading: 2rem;
+}
+
+    * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Noto Sans JP", sans-serif;
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-base);
+  color: var(--color-text);
+  background: #fff;
+  padding: 48px;
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.page-header {
+  background: var(--color-bg-header);
+  border-left: 5px solid var(--color-accent);
+  padding: 32px 40px;
+  margin-bottom: 40px;
+}
+
+.page-header .header-name {
+  font-size: var(--font-size-xl);
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  margin-bottom: 2px;
+}
+
+.page-header .header-role {
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  color: var(--color-text-sub);
+  margin-bottom: 20px;
+}
+
+.page-header .header-contact {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+.entry {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 0 32px;
+  margin-bottom: 40px;
+}
+
+.entry-date {
+  font-size: var(--font-size-base);
+  font-weight: 700;
+  color: var(--color-text-sub);
+  line-height: var(--line-height-heading);
+  white-space: nowrap;
+}
+
+.company-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 8px;
+}
+
+.company-name {
+  font-size: var(--font-size-md);
+  font-weight: 700;
+  color: var(--color-accent);
+  line-height: var(--line-height-heading);
+}
+
+.company-role {
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  color: var(--color-text-sub);
+}
+
+.info-table {
+  width: 100%;
+  border: 1px solid var(--color-border);
+  border-collapse: collapse;
+  margin-bottom: 12px;
+  font-size: var(--font-size-xs);
+}
+
+.info-table td {
+  border: 1px solid var(--color-border);
+  padding: 5px 10px;
+  vertical-align: top;
+}
+
+.info-table td:first-child {
+  white-space: nowrap;
+  width: 90px;
+  background: var(--color-bg-table);
+  font-weight: 600;
+}
+
+.team-name {
+  font-size: var(--font-size-base);
+  font-weight: 700;
+  color: var(--color-accent);
+  line-height: var(--line-height-heading);
+  margin: 12px 0 8px;
+}
+
+.detail-table {
+  width: 100%;
+  border: 1px solid var(--color-border);
+  border-collapse: collapse;
+  margin-bottom: 10px;
+  font-size: var(--font-size-xs);
+}
+
+.detail-table td {
+  border: 1px solid var(--color-border);
+  padding: 5px 10px;
+  vertical-align: top;
+}
+
+.detail-table td:first-child {
+  white-space: nowrap;
+  width: 90px;
+  font-weight: 600;
+  background: var(--color-bg-table);
+}
+
+.description {
+  font-size: var(--font-size-xs);
+  line-height: var(--line-height-text);
+  color: var(--color-text-desc);
+}
+
+.self-pr {
+  margin-top: 48px;
+  margin-bottom: 52px;
+}
+
+.self-pr h2 {
+  font-size: var(--font-size-lg);
+  font-weight: 900;
+  text-align: center;
+  color: var(--color-accent);
+  margin-bottom: 20px;
+}
+
+.self-pr p {
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-text);
+  margin-bottom: 10px;
+}
+
+@media print {
+  body { padding: 24px; }
+}
+
+  </style>
+</head>
+<body>
+
+  <div class="page-header">
+    <div class="header-name">木島 優大朗</div>
+    <div class="header-role">Web エンジニア</div>
+    <div class="header-contact">東京都　|　example@example.com</div>
+  </div>
+
+  <div class="self-pr">
+    <h2>概要</h2>
+    <p class="summary-text">フロントに軸を置いていますが、バックエンドの経験もあります。<br>以下が私の強みです<br><br>・Reactのコンポーネント, hooksの適切な設計、またリファクタリング<br>・Figmaに忠実でかつ、レスポンシブを考慮したフロント実装<br>・フロントエンドテスト導入の経験</p>
+  </div>
+
+  
+  <div class="entry">
+    <div class="entry-date">2018年10月</div>
+    <div class="entry-content">
+
+      
+      <div class="company-row">
+        <span class="company-name">株式会社ジーニー</span>
+        <span class="company-role">インターン</span>
+      </div>
+      
+      <table class="info-table">
+        
+        <tr>
+          <td>事業内容</td>
+          <td>広告・マーケティングSaaS事業/海外事業</td>
+        </tr>
+        
+        <tr>
+          <td>資本金</td>
+          <td>1,549百万円（連結、2023年3月末現在）</td>
+        </tr>
+        
+        <tr>
+          <td>従業員数</td>
+          <td>566名（連結、2023年3月末現在）</td>
+        </tr>
+        
+      </table>
+      
+      
+
+      
+      
+      <div class="team-name">広告主向けシステムの管理画面の開発</div>
+      
+      <table class="detail-table">
+        
+        <tr>
+          <td>チーム人数</td>
+          <td>6人</td>
+        </tr>
+        
+        <tr>
+          <td>担当業務</td>
+          <td>設計・単体テスト・運用保守・インフラ構築</td>
+        </tr>
+        
+        <tr>
+          <td>技術スタック</td>
+          <td>React.js, FlowType, Webpack, Java, Spring Boot, Jenkins</td>
+        </tr>
+        
+      </table>
+      
+      <p class="description">
+        OJTとして、DSP（広告主向けのシステム）の管理画面の保守、改善に従事。<br>
+        ドキュメントの更新やバグ修正といった簡単な業務から入り、機能追加やUIの改修などを経験。
+      </p>
+      
+      
+
+      
+
+    </div>
+  </div>
+  
+  <div class="entry">
+    <div class="entry-date">2019年4月</div>
+    <div class="entry-content">
+
+      
+      <div class="company-row">
+        <span class="company-name">株式会社ジーニー</span>
+        <span class="company-role">入社</span>
+      </div>
+      
+      
+
+      
+
+      
+      <p class="description">
+        同チームにて引き続き保守、改善の業務に従事。<br>
+        終盤ではバッチ処理のインフラが新規に必要になり、オンプレ環境にheadless javaを入れてデプロイパイプラインをJenkinsで構築するなどしました。
+      </p>
+      
+
+    </div>
+  </div>
+  
+  <div class="entry">
+    <div class="entry-date">2019年10月</div>
+    <div class="entry-content">
+
+      
+
+      
+      
+      <div class="team-name">屋外広告システムの新規開発</div>
+      
+      <table class="detail-table">
+        
+        <tr>
+          <td>チーム人数</td>
+          <td>8人</td>
+        </tr>
+        
+        <tr>
+          <td>担当業務</td>
+          <td>設計・実装・単体テスト・CI/CD・インフラ構築・コードレビュー・タスク管理</td>
+        </tr>
+        
+        <tr>
+          <td>技術スタック</td>
+          <td>Next.js, Jest, Storybook, GCP(GAE, Cloud Build)</td>
+        </tr>
+        
+      </table>
+      
+      <p class="description">
+        屋外広告の新規プロダクトの開発に参画。フロントエンドの開発をリードする。<br>
+        0→1のフェーズだったので、技術選定からインフラ構築、初期設計といった業務を経験しました。また他のメンバーへの技術指導やコードレビュー、タスクアサインといったリーダー業務も経験しました。
+      </p>
+      
+      
+
+      
+
+    </div>
+  </div>
+  
+  <div class="entry">
+    <div class="entry-date">2020年8月</div>
+    <div class="entry-content">
+
+      
+      <div class="company-row">
+        <span class="company-name">株式会社イタンジ</span>
+        <span class="company-role">入社</span>
+      </div>
+      
+      <table class="info-table">
+        
+        <tr>
+          <td>事業内容</td>
+          <td>一般消費者様への不動産サービス提供<br>不動産会社様へのシステム提供</td>
+        </tr>
+        
+        <tr>
+          <td>資本金</td>
+          <td>3,600万円</td>
+        </tr>
+        
+        <tr>
+          <td>従業員数</td>
+          <td>147人</td>
+        </tr>
+        
+      </table>
+      
+      
+
+      
+      
+      <div class="team-name">不動産物件データ基盤の保守・運用・刷新</div>
+      
+      <table class="detail-table">
+        
+        <tr>
+          <td>チーム人数</td>
+          <td>8人</td>
+        </tr>
+        
+        <tr>
+          <td>担当業務</td>
+          <td>設計・技術選定・実装・単体テスト・CI/CD・インフラ構築・コードレビュー</td>
+        </tr>
+        
+        <tr>
+          <td>技術スタック</td>
+          <td>Scala, Play, Akka-Stream, Akka-Http, Debezium, ECS, Kinesis</td>
+        </tr>
+        
+      </table>
+      
+      <p class="description">
+        不動産物件データ管理システムの保守、検索システムの刷新に従事。<br>
+        物件データ管理システムの保守では、外部技術顧問の指導のもと、DDDで機能単位のリライトを経験しました。<br>
+        検索システムの刷新では、管理側システムのリレーショナルDBから検索側のElasticSearchに物件データを同期するデータパイプラインを構築。<br>
+        CDCやKinesisといった当時社内に知見がなかった技術を導入しました。
+      </p>
+      
+      
+
+      
+
+    </div>
+  </div>
+  
+  <div class="entry">
+    <div class="entry-date">2021年7月</div>
+    <div class="entry-content">
+
+      
+      <div class="company-row">
+        <span class="company-name">株式会社AGRI SMILE</span>
+        <span class="company-role">入社</span>
+      </div>
+      
+      <table class="info-table">
+        
+        <tr>
+          <td>事業内容</td>
+          <td>農業DXプラットフォームの提供</td>
+        </tr>
+        
+        <tr>
+          <td>資本金</td>
+          <td>2.1億円（2021年9月時点）</td>
+        </tr>
+        
+        <tr>
+          <td>従業員数</td>
+          <td>51名（2023年6月時点）</td>
+        </tr>
+        
+      </table>
+      
+      
+
+      
+      
+      <div class="team-name">オンライン学会システム ONLINE CONFの開発・保守・運用</div>
+      
+      <table class="detail-table">
+        
+        <tr>
+          <td>チーム人数</td>
+          <td>5人</td>
+        </tr>
+        
+        <tr>
+          <td>担当業務</td>
+          <td>設計・実装・単体テスト・CI・コードレビュー</td>
+        </tr>
+        
+        <tr>
+          <td>技術スタック</td>
+          <td>React.js, Webpack, TypeScript, Jest, React Testing Library, Storybook, Ruby on Rails, Heroku</td>
+        </tr>
+        
+      </table>
+      
+      <p class="description">
+        副業でお手伝いしていたプロジェクトに二人目エンジニアとして参画。<br>
+        オンライン学会システムのフロントエンドを0→1から担当。<br>
+        プロダクトが軌道に乗ってからは機能追加を主に任され、一人で設計からバックエンド、フロントエンドの実装まで一気通貫で行なっていました。<br>
+        日々機能追加に追われる中、styled-jsxからChakra-UIへの移行をしたり、フロントエンドテストを導入したりとリファクタリングも常に行なっていました。また、フロントエンドにおいてチームを横断して他メンバーへのレビュー、啓蒙を行なってきました。<br>
+        2023年8月末退社。
+      </p>
+      
+      
+
+      
+
+    </div>
+  </div>
+  
+  <div class="entry">
+    <div class="entry-date">2024年4月</div>
+    <div class="entry-content">
+
+      
+      <div class="company-row">
+        <span class="company-name">株式会社High Link</span>
+        <span class="company-role">入社</span>
+      </div>
+      
+      <table class="info-table">
+        
+        <tr>
+          <td>事業内容</td>
+          <td>「香りの定期便 カラリア」の運営</td>
+        </tr>
+        
+        <tr>
+          <td>資本金</td>
+          <td>1億円</td>
+        </tr>
+        
+        <tr>
+          <td>従業員数</td>
+          <td>60名</td>
+        </tr>
+        
+      </table>
+      
+      
+
+      
+      
+      <div class="team-name">「香りの定期便 カラリア」の開発・保守・運用</div>
+      
+      <table class="detail-table">
+        
+        <tr>
+          <td>チーム人数</td>
+          <td>5人</td>
+        </tr>
+        
+        <tr>
+          <td>担当業務</td>
+          <td>設計・実装・テスト・コードレビュー</td>
+        </tr>
+        
+        <tr>
+          <td>技術スタック</td>
+          <td>React.js, Next.js, TypeScript, Jest, React Testing Library, Storybook, Bun, Ruby on Rails, AWS</td>
+        </tr>
+        
+      </table>
+      
+      <p class="description">
+        プロダクトエンジニア（フロントエンド、バックエンド）として参画。<br>
+        High Linkではプロダクト開発チームとは別軸で、プロジェクトチームにアサインされカラリアの改善にあたっています。<br>
+        機能追加を主に任され、一人で設計からバックエンド、フロントエンドの実装まで一気通貫で行なっております。また他開発メンバーのコードレビューも行っています。<br>
+        日々機能追加に追われる中、フロントエンドテストの導入やランタイムにBunを導入しCI/CDを高速化するなど、サービスの裏側の改善にも取り組んでおります。
+      </p>
+      
+      
+
+      
+
+    </div>
+  </div>
+  
+
+</body>
+</html>

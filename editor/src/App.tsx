@@ -261,7 +261,7 @@ export default function App() {
   return (
     <div className="min-h-screen bg-muted/40">
       <header className="sticky top-0 z-50 bg-slate-900 text-white px-6 py-3 flex items-center justify-between gap-4">
-        <h1 className="text-base font-bold">職務経歴書エディター</h1>
+        <h1 className="text-base font-bold">resume</h1>
         <div className="flex items-center gap-2">
           {status && <span className="text-sm text-sky-300">{status}</span>}
           <Button onClick={saveAndBuild} className="bg-blue-600 hover:bg-blue-700 text-white">保存</Button>

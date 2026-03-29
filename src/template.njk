@@ -47,26 +47,17 @@
       {% if entry.teams %}
       {% for team in entry.teams %}
       <div class="team-name">{{ team.project }}</div>
-      {% if team.detail %}
       <table class="detail-table">
-        {% for row in team.detail %}
-        <tr>
-          <td>{{ row.label }}</td>
-          <td>{{ row.value }}</td>
-        </tr>
-        {% endfor %}
+        <tr><td>チーム人数</td><td>{{ team.teamSize }}</td></tr>
+        <tr><td>担当業務</td><td>{{ team.tasks }}</td></tr>
+        <tr><td>技術スタック</td><td>{{ team.stack }}</td></tr>
       </table>
-      {% endif %}
-      <p class="description">
-        {{ team.description | join("<br>\n        ") | safe }}
-      </p>
+      <p class="description">{{ team.description | replace("\n", "<br>") | safe }}</p>
       {% endfor %}
       {% endif %}
 
       {% if entry.description %}
-      <p class="description">
-        {{ entry.description | join("<br>\n        ") | safe }}
-      </p>
+      <p class="description">{{ entry.description | replace("\n", "<br>") | safe }}</p>
       {% endif %}
 
     </div>

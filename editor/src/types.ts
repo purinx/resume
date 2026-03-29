@@ -5,8 +5,10 @@ export interface LabelValue {
 
 export interface Team {
   project: string
-  detail?: LabelValue[]
-  description: string[]
+  teamSize: string
+  tasks: string
+  stack: string
+  description: string
 }
 
 export interface Company {
@@ -19,7 +21,7 @@ export interface Entry {
   date: string
   company?: Company
   teams?: Team[]
-  description?: string[]
+  description?: string
 }
 
 export interface Meta {

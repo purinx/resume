@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import tailwindcss from '@tailwindcss/vite'
 import fs from 'fs'
 import path from 'path'
 import { execFile } from 'child_process'
@@ -7,8 +8,12 @@ import { execFile } from 'child_process'
 const DATA_PATH = path.resolve(__dirname, '../src/202603.json')
 
 export default defineConfig({
+  resolve: {
+    alias: { '@': path.resolve(__dirname, './src') },
+  },
   plugins: [
     react(),
+    tailwindcss(),
     {
       name: 'api',
       configureServer(server) {

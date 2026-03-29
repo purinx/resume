@@ -1,5 +1,14 @@
 import { useEffect, useState } from 'react'
-import type { CVData, Entry, Team, LabelValue } from './types'
+import type { CVData, Entry, Team } from './types'
+import {
+  DndContext, closestCenter, PointerSensor, useSensor, useSensors,
+  type DragEndEvent,
+} from '@dnd-kit/core'
+import {
+  SortableContext, verticalListSortingStrategy,
+  useSortable, arrayMove,
+} from '@dnd-kit/sortable'
+import { CSS } from '@dnd-kit/utilities'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
@@ -11,73 +20,13 @@ import {
   AlertDialogContent, AlertDialogDescription, AlertDialogFooter,
   AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger,
 } from '@/components/ui/alert-dialog'
-import { ChevronDown, ChevronRight, Trash2, Plus } from 'lucide-react'
+import { ChevronDown, ChevronRight, Trash2, Plus, GripVertical } from 'lucide-react'
 
 function Field({ label, value, onChange }: { label: string; value: string; onChange: (v: string) => void }) {
   return (
     <div className="space-y-1">
       <Label className="text-xs text-muted-foreground">{label}</Label>
       <Input value={value} onChange={e => onChange(e.target.value)} />
-    </div>
-  )
-}
-
-function LabelValueList({ title, rows, onChange }: {
-  title: string
-  rows: LabelValue[]
-  onChange: (rows: LabelValue[]) => void
-}) {
-  const update = (i: number, key: keyof LabelValue, val: string) =>
-    onChange(rows.map((r, idx) => idx === i ? { ...r, [key]: val } : r))
-  const add = () => onChange([...rows, { label: '', value: '' }])
-  const remove = (i: number) => onChange(rows.filter((_, idx) => idx !== i))
-
-  return (
-    <div className="space-y-2">
-      <div className="flex items-center justify-between">
-        <span className="text-xs font-semibold text-muted-foreground">{title}</span>
-        <Button size="sm" variant="outline" onClick={add} className="h-6 px-2 text-xs gap-1">
-          <Plus className="h-3 w-3" /> 追加
-        </Button>
-      </div>
-      {rows.map((row, i) => (
-        <div key={i} className="flex gap-2 items-start">
-          <Input placeholder="ラベル" value={row.label} onChange={e => update(i, 'label', e.target.value)} className="max-w-[100px]" />
-          <Input placeholder="値" value={row.value} onChange={e => update(i, 'value', e.target.value)} />
-          <Button size="icon" variant="ghost" onClick={() => remove(i)} className="h-9 w-9 text-destructive hover:text-destructive shrink-0">
-            <Trash2 className="h-4 w-4" />
-          </Button>
-        </div>
-      ))}
-    </div>
-  )
-}
-
-function StringList({ title, lines, onChange }: {
-  title: string
-  lines: string[]
-  onChange: (lines: string[]) => void
-}) {
-  const update = (i: number, val: string) => onChange(lines.map((l, idx) => idx === i ? val : l))
-  const add = () => onChange([...lines, ''])
-  const remove = (i: number) => onChange(lines.filter((_, idx) => idx !== i))
-
-  return (
-    <div className="space-y-2">
-      <div className="flex items-center justify-between">
-        <span className="text-xs font-semibold text-muted-foreground">{title}</span>
-        <Button size="sm" variant="outline" onClick={add} className="h-6 px-2 text-xs gap-1">
-          <Plus className="h-3 w-3" /> 追加
-        </Button>
-      </div>
-      {lines.map((line, i) => (
-        <div key={i} className="flex gap-2 items-start">
-          <Textarea rows={2} value={line} onChange={e => update(i, e.target.value)} className="resize-y" />
-          <Button size="icon" variant="ghost" onClick={() => remove(i)} className="h-9 w-9 text-destructive hover:text-destructive shrink-0">
-            <Trash2 className="h-4 w-4" />
-          </Button>
-        </div>
-      ))}
     </div>
   )
 }
@@ -104,9 +53,10 @@ function ProjectEditor({ team, onChange, onRemove }: {
         <table className="w-full border-collapse text-sm">
           <tbody>
             {([
-              { label: 'チーム人数', value: team.teamSize, onChange: (v: string) => onChange({ ...team, teamSize: v }) },
-              { label: '担当業務',   value: team.tasks,    onChange: (v: string) => onChange({ ...team, tasks: v }) },
-              { label: '技術スタック', value: team.stack,  onChange: (v: string) => onChange({ ...team, stack: v }) },
+              { label: '年月（任意）', value: team.date ?? '',  onChange: (v: string) => onChange({ ...team, date: v || undefined }) },
+              { label: 'チーム人数', value: team.teamSize,      onChange: (v: string) => onChange({ ...team, teamSize: v }) },
+              { label: '担当業務',   value: team.tasks,         onChange: (v: string) => onChange({ ...team, tasks: v }) },
+              { label: '技術スタック', value: team.stack,       onChange: (v: string) => onChange({ ...team, stack: v }) },
             ] as const).map(({ label, value, onChange: onCellChange }) => (
               <tr key={label} className="border-b last:border-b-0">
                 <td className="py-2 pr-3 whitespace-nowrap text-xs font-medium text-muted-foreground w-24 align-middle">{label}</td>
@@ -131,26 +81,37 @@ function ProjectEditor({ team, onChange, onRemove }: {
   )
 }
 
-function EntryEditor({ entry, onChange, onRemove }: {
+function EntryEditor({ id, entry, onChange, onRemove }: {
+  id: string
   entry: Entry
   onChange: (e: Entry) => void
   onRemove: () => void
 }) {
   const [open, setOpen] = useState(false)
   const label = entry.company?.name ?? entry.teams?.[0]?.project ?? '(未入力)'
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id })
 
   return (
+    <div
+      ref={setNodeRef}
+      style={{ transform: CSS.Transform.toString(transform), transition, opacity: isDragging ? 0.5 : 1 }}
+    >
     <Collapsible open={open} onOpenChange={setOpen} className="border rounded-md overflow-hidden">
       <div className="flex items-center justify-between bg-slate-800 text-white px-3 py-2">
+        <button
+          className="cursor-grab active:cursor-grabbing p-1 text-slate-400 hover:text-white shrink-0"
+          {...attributes}
+          {...listeners}
+        >
+          <GripVertical className="h-4 w-4" />
+        </button>
         <CollapsibleTrigger className="flex items-center gap-2 text-base font-semibold flex-1 text-left min-w-0 cursor-pointer bg-transparent border-none text-white p-0">
           {open ? <ChevronDown className="h-4 w-4 shrink-0" /> : <ChevronRight className="h-4 w-4 shrink-0" />}
           <span className="truncate">{entry.date} {label}</span>
         </CollapsibleTrigger>
         <AlertDialog>
-          <AlertDialogTrigger asChild>
-            <Button size="icon" variant="ghost" className="h-8 w-8 text-red-300 hover:text-red-100 hover:bg-slate-700 shrink-0">
-              <Trash2 className="h-4 w-4" />
-            </Button>
+          <AlertDialogTrigger render={<Button size="icon" variant="ghost" className="h-8 w-8 text-red-300 hover:text-red-100 hover:bg-slate-700 shrink-0" />}>
+            <Trash2 className="h-4 w-4" />
           </AlertDialogTrigger>
           <AlertDialogContent>
             <AlertDialogHeader>
@@ -228,7 +189,7 @@ function EntryEditor({ entry, onChange, onRemove }: {
           </div>
 
         <div className="space-y-1">
-          <Label className="text-xs text-muted-foreground">エントリー直下の説明文（プロジェクトなし時）</Label>
+          <Label className="text-xs text-muted-foreground">職歴直下の説明文（プロジェクトなし時）</Label>
           <Textarea
             rows={4}
             value={entry.description ?? ''}
@@ -258,6 +219,7 @@ function EntryEditor({ entry, onChange, onRemove }: {
         </div>
       </CollapsibleContent>
     </Collapsible>
+    </div>
   )
 }
 
@@ -292,6 +254,8 @@ export default function App() {
 
   const saveAndBuild = async () => { await save(); await build() }
 
+  const companySensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 5 } }))
+
   if (!data) return <div className="flex items-center justify-center min-h-screen text-muted-foreground">読み込み中...</div>
 
   return (
@@ -306,7 +270,7 @@ export default function App() {
 
       <div className="max-w-4xl mx-auto px-4 py-6 pb-16 space-y-4">
         <section className="bg-white rounded-lg shadow-sm p-5 space-y-3">
-          <h2 className="text-sm font-bold border-b pb-2">基本情報</h2>
+          <h2 className="text-lg font-bold border-b pb-2">基本情報</h2>
           <Field label="タイトル" value={data.meta.title} onChange={v => setData({ ...data, meta: { ...data.meta, title: v } })} />
           <Field label="現在日付" value={data.meta.date} onChange={v => setData({ ...data, meta: { ...data.meta, date: v } })} />
           <Field label="氏名" value={data.meta.name} onChange={v => setData({ ...data, meta: { ...data.meta, name: v } })} />
@@ -316,7 +280,7 @@ export default function App() {
         </section>
 
         <section className="bg-white rounded-lg shadow-sm p-5 space-y-3">
-          <h2 className="text-sm font-bold border-b pb-2">概要</h2>
+          <h2 className="text-lg font-bold border-b pb-2">概要</h2>
           <Textarea
             rows={8}
             value={data.summary}
@@ -327,24 +291,40 @@ export default function App() {
 
         <section className="bg-white rounded-lg shadow-sm p-5 space-y-3">
           <div className="flex items-center justify-between border-b pb-2">
-            <h2 className="text-sm font-bold">職歴</h2>
+            <h2 className="text-lg font-bold">職歴</h2>
             <Button size="sm" variant="outline" onClick={() => setData({
               ...data,
               entries: [...data.entries, { date: '', teams: [] }]
-            })} className="h-6 px-2 text-xs gap-1">
-              <Plus className="h-3 w-3" /> エントリー追加
+            })} className="gap-1">
+              <Plus className="h-3 w-3" /> 職歴追加
             </Button>
           </div>
-          <div className="space-y-2">
-            {data.entries.map((entry, i) => (
-              <EntryEditor
-                key={i}
-                entry={entry}
-                onChange={e => setData({ ...data, entries: data.entries.map((x, idx) => idx === i ? e : x) })}
-                onRemove={() => setData({ ...data, entries: data.entries.filter((_, idx) => idx !== i) })}
-              />
-            ))}
-          </div>
+          <DndContext
+            sensors={companySensors}
+            collisionDetection={closestCenter}
+            onDragEnd={(event: DragEndEvent) => {
+              const { active, over } = event
+              if (over && active.id !== over.id) {
+                const oldIndex = data.entries.findIndex((_, i) => String(i) === active.id)
+                const newIndex = data.entries.findIndex((_, i) => String(i) === over.id)
+                setData({ ...data, entries: arrayMove(data.entries, oldIndex, newIndex) })
+              }
+            }}
+          >
+            <SortableContext items={data.entries.map((_, i) => String(i))} strategy={verticalListSortingStrategy}>
+              <div className="space-y-2">
+                {data.entries.map((entry, i) => (
+                  <EntryEditor
+                    key={i}
+                    id={String(i)}
+                    entry={entry}
+                    onChange={e => setData({ ...data, entries: data.entries.map((x, idx) => idx === i ? e : x) })}
+                    onRemove={() => setData({ ...data, entries: data.entries.filter((_, idx) => idx !== i) })}
+                  />
+                ))}
+              </div>
+            </SortableContext>
+          </DndContext>
         </section>
       </div>
     </div>

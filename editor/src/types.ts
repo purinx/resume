@@ -5,6 +5,7 @@ export interface LabelValue {
 
 export interface Team {
   project: string
+  date?: string
   teamSize: string
   tasks: string
   stack: string

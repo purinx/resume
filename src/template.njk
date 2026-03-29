@@ -44,9 +44,13 @@
       {% endif %}
       {% endif %}
 
+      {% if entry.description %}
+      <p class="description">{{ entry.description | replace("\n", "<br>") | safe }}</p>
+      {% endif %}
+
       {% if entry.teams %}
       {% for team in entry.teams %}
-      <div class="team-name">{{ team.project }}</div>
+      <div class="team-name">{% if team.date %}<span class="team-date">{{ team.date }}</span>{% endif %}{{ team.project }}</div>
       <table class="detail-table">
         <tr><td>チーム人数</td><td>{{ team.teamSize }}</td></tr>
         <tr><td>担当業務</td><td>{{ team.tasks }}</td></tr>
@@ -54,10 +58,6 @@
       </table>
       <p class="description">{{ team.description | replace("\n", "<br>") | safe }}</p>
       {% endfor %}
-      {% endif %}
-
-      {% if entry.description %}
-      <p class="description">{{ entry.description | replace("\n", "<br>") | safe }}</p>
       {% endif %}
 
     </div>

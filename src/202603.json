@@ -7,7 +7,7 @@
     "address": "Email",
     "email": "eddix.ibanez@outlook.jp"
   },
-  "summary": "新卒でジーニーに入社し、複数社でWebフロントエンドとバックエンド双方の開発経験を積んできました。\n後半、AGRI SMILEやHigh Linkでは要件定義から入り、より適切な仕様に落とし込んでから設計・実装までリードしてきました。\n特にフロントエンドの経験が豊富で、以下が強みです。\n・Core Web Vitalsなどの指標に基づいたパフォーマンス改善\n・フロントエンド(特にReact)周りのエコシステムの知識\n・部分的ではあるがUIデザイン(Figma)の経験\n\nまた最近はClaude Code, Codexなどのエージェントを活用した開発にも力を入れています。\n例:\n・フロントエンドのテストがほぼない状態からカバレッジ80%まで作成\n・個人用の職務経歴書管理ツールの作成 (リポジトリ: <a href=\"https://github.com/purinx/resume\">https://github.com/purinx/resume</a>)",
+  "summary": "新卒でジーニーに入社し、複数社でWebフロントエンドとバックエンド双方の開発経験を積んできました。\nAGRI SMILEやHigh Linkでは要件定義から入り、より適切な仕様に落とし込んでから設計・実装までリードしてきました。\n\n特にフロントエンドの経験が豊富で、以下が強みです。\n・Core Web Vitalsなどの指標に基づいたパフォーマンス改善\n・フロントエンド(特にReact)周りのエコシステムの知識\n・部分的ではあるがUIデザイン(Figma)の経験\n\n最近はClaude Code, Codexなどのエージェントを活用した開発にも力を入れています。\n例:\n・フロントエンドのテストがほぼない状態からカバレッジ80%まで作成\n・個人用の職務経歴書管理ツールの作成 (リポジトリ: <a href=\"https://github.com/purinx/resume\">https://github.com/purinx/resume</a>)",
   "entries": [
     {
       "date": "2018年10月",
@@ -160,7 +160,7 @@
           "teamSize": "5人",
           "tasks": "設計・実装・テスト・コードレビュー",
           "stack": "Ruby on Rails, AWS, Next.js, TypeScript, Vitest, Playwright, Storybook, Ruby on Rails, AWS",
-          "description": "職能横断のチームにプロダクトエンジニアとして参画し、カラリアの機能追加、改善にあたっています。\n日々機能追加やバグ対応に追われる中、フロントエンドテストの導入やCI/CDの高速化、Railsのアップデートなど、\nサービスの裏側の改善にも取り組んでおります。"
+          "description": "職能横断のチームにプロダクトエンジニアとして参画し、カラリアの機能追加、改善にあたっています。\nフロントエンドテストの導入やCI/CDの高速化、Railsのアップデートなどサービスの裏側の改善にも取り組んでおります。"
         }
       ]
     }
